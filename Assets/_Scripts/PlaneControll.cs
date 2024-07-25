@@ -16,7 +16,7 @@ public class PlaneControll : MonoBehaviour
     private float xDir, yDir;
 
     private Vector3 startPos;
-    private float distance;
+    private int distance;
 
     private Rigidbody2D rb;
 
@@ -67,7 +67,7 @@ public class PlaneControll : MonoBehaviour
             FlySpeed();
             FlyAngle();
         }
-        distance = Vector3.Distance(startPos, transform.position);
+        //distance = Vector3.Distance(startPos, transform.position);
         //Debug.Log(distance);
     }
     public void LaunchPlane()
@@ -81,6 +81,8 @@ public class PlaneControll : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isStopRb = true;
+            distance = collision.gameObject.GetComponent<Platform>().GetMeter();
+            //Debug.Log(distance);
         }
     }
     private void FixedUpdate()
@@ -89,8 +91,8 @@ public class PlaneControll : MonoBehaviour
         {
             if(rb.velocity.magnitude <= 0.3f)
             {
-                Debug.Log(distance);
-                GameManager.Instance.GameOver();                
+                //Debug.Log(distance);
+                GameManager.Instance.GameOver(distance);                
             }
         }
     }

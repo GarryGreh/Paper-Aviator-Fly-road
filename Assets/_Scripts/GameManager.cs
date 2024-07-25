@@ -44,8 +44,10 @@ public class GameManager : MonoBehaviour
         prediction += _num;
         predictionText.text = prediction.ToString() + " m";
     }
-    public void GameOver()
+    public void GameOver(int _distance)
     {
+        //здесь нужно показывать дистанцию на экран и сравнивать с прогнозом
+       Debug.Log(_distance);
         Time.timeScale = 0.0f;
     }
 }
