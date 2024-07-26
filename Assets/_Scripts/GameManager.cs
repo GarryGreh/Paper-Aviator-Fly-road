@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -13,7 +14,13 @@ public class GameManager : MonoBehaviour
     public RectTransform directionWindIcon;
     public Transform windPartical;
 
+    public GameObject GameOverPanel;
+    public TextMeshProUGUI distanceTreveledText;
+    public TextMeshProUGUI yourPredictionText;
+
     private int prediction;
+    private int reward = 50;
+    private int currentCoins;
     private void Awake()
     {
         Instance = this;
@@ -21,6 +28,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1.0f;
+        prediction = 0;
+        GameOverPanel.SetActive(false);
     }
     public void WindForce(float _windForce)
     {
@@ -46,8 +55,28 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver(int _distance)
     {
+        GameOverPanel.SetActive(true);
+        yourPredictionText.text = prediction.ToString();
         //здесь нужно показывать дистанцию на экран и сравнивать с прогнозом
-       Debug.Log(_distance);
+        if (prediction + 1 == _distance || prediction - 1 == _distance || prediction == _distance)
+        {
+            currentCoins += reward;
+            distanceTreveledText.text = _distance.ToString();
+            distanceTreveledText.color = Color.green;
+        }
+        else if(prediction + 2 == _distance || prediction - 2 == _distance)
+        {
+            currentCoins += reward / 2;
+            distanceTreveledText.text = _distance.ToString();
+            distanceTreveledText.color = Color.yellow;
+        }
+        else if(prediction - 2 < _distance || prediction + 2 > _distance)
+        {
+            currentCoins += 0;
+            distanceTreveledText.text = _distance.ToString();
+            distanceTreveledText.color = Color.red;
+        }
+        Debug.Log(_distance);
         Time.timeScale = 0.0f;
     }
 }
