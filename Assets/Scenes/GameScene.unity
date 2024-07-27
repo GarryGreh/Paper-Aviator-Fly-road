@@ -6149,7 +6149,7 @@ GameObject:
   - component: {fileID: 609813811}
   - component: {fileID: 609813810}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: RewardText (TMP) (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8017,8 +8017,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -300}
-  m_SizeDelta: {x: 768.76, y: 768.76}
+  m_AnchoredPosition: {x: 0, y: -203.59}
+  m_SizeDelta: {x: 575.93, y: 575.93}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1525981763
 MonoBehaviour:
