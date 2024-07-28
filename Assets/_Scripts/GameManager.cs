@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI distanceTreveledText;
     public TextMeshProUGUI yourPredictionText;
 
+    public TextMeshProUGUI rewardText;
+
     private int prediction;
-    private int reward = 50;
+    private int reward;
     private int currentCoins;
     private void Awake()
     {
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         prediction = 0;
         GameOverPanel.SetActive(false);
+        reward = 50;
     }
     public void WindForce(float _windForce)
     {
@@ -69,14 +73,22 @@ public class GameManager : MonoBehaviour
             currentCoins += reward / 2;
             distanceTreveledText.text = _distance.ToString();
             distanceTreveledText.color = Color.yellow;
+            reward /= 2;
         }
         else if(prediction - 2 < _distance || prediction + 2 > _distance)
         {
             currentCoins += 0;
             distanceTreveledText.text = _distance.ToString();
             distanceTreveledText.color = Color.red;
+            reward = 0;
         }
+        rewardText.text = reward.ToString();
+        currentCoins += reward;
         Debug.Log(_distance);
         Time.timeScale = 0.0f;
+    }
+    public void RestartButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
