@@ -13,7 +13,7 @@ public class Platform : MonoBehaviour
     {
         meter = _meter - 1;
         metersText.text = _meter.ToString() + " m";
-        Debug.Log(meter - 1);
+       // Debug.Log(meter - 1);
     }
     public int GetMeter()
     {

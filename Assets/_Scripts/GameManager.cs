@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverPanel;
     public TextMeshProUGUI distanceTreveledText;
     public TextMeshProUGUI yourPredictionText;
+    public GameObject PausePanel;
 
     public TextMeshProUGUI rewardText;
 
@@ -34,6 +35,10 @@ public class GameManager : MonoBehaviour
         prediction = 0;
         GameOverPanel.SetActive(false);
         reward = 50;
+        if (PlayerPrefs.HasKey("coins"))
+        {
+            currentCoins = PlayerPrefs.GetInt("coins");
+        }
     }
     public void WindForce(float _windForce)
     {
@@ -83,12 +88,25 @@ public class GameManager : MonoBehaviour
             reward = 0;
         }
         rewardText.text = reward.ToString();
-        currentCoins += reward;
-        Debug.Log(_distance);
+        PlayerPrefs.SetInt("coins", currentCoins);
+       // currentCoins += reward;
+       // Debug.Log(_distance);
         Time.timeScale = 0.0f;
     }
     public void RestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void MenuButton()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
+    public void PauseButton()
+    {
+        PausePanel.SetActive(true);
+    }
+    public void PauseHomeButton()
+    {
+        PausePanel.SetActive(false);
     }
 }

@@ -22,8 +22,26 @@ public class PlaneControll : MonoBehaviour
 
     private bool isStopRb;
 
+    private int difficultyIndex;
+
     private void Start()
     {
+        if (PlayerPrefs.HasKey("indexDifficulty"))
+        {
+            difficultyIndex = PlayerPrefs.GetInt("indexDifficulty");
+        }
+        else
+        {
+            difficultyIndex = 2;
+        }
+        if(difficultyIndex > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 10);
+            direction = new Vector3(1.0f, 0.10f, 0.0f);
+        }
+        transform.rotation = Quaternion.Euler(0, 0, 10);
+        direction = new Vector3(1.0f, 0.10f, 0.0f);
+
         isStopRb = false;
         rb = GetComponent<Rigidbody2D>();
         rb.simulated = false;
@@ -54,11 +72,19 @@ public class PlaneControll : MonoBehaviour
     }
     private void FlyAngle()
     {
-        float angle = flyAngle.value;
-        GameManager.Instance.FlyAngle(angle);
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-        angle /= 100;
-        direction = new Vector3(1.0f, angle, 0.0f);      
+        if (difficultyIndex > 0)
+        {
+            float angle = flyAngle.value;
+            GameManager.Instance.FlyAngle(angle);
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+            angle /= 100;
+            direction = new Vector3(1.0f, angle, 0.0f);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 10);
+            direction = new Vector3(1.0f, 0.10f, 0.0f);
+        }
     }
     private void Update()
     {
@@ -74,7 +100,14 @@ public class PlaneControll : MonoBehaviour
     {
         isLaunch = true;
         rb.simulated = true;
-        rb.AddForce((direction + windDirection) * (speed + windPower) * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        if (difficultyIndex > 1)
+        {
+            rb.AddForce((direction + windDirection) * (speed + windPower) * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.AddForce(direction * 0.7f * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
