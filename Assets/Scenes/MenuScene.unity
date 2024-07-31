@@ -425,7 +425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &116542666
 RectTransform:
   m_ObjectHideFlags: 0
@@ -830,8 +830,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 62.76, y: 0}
-  m_SizeDelta: {x: -125.51, y: 0}
+  m_AnchoredPosition: {x: 41.36, y: 0}
+  m_SizeDelta: {x: -136.99, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &317049473
 MonoBehaviour:
@@ -853,9 +853,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '500
-
-'
+  m_text: 500
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f1137fa1fbff8f4193a4dda646c5c66, type: 2}
   m_sharedMaterial: {fileID: 3393821625065184729, guid: 0f1137fa1fbff8f4193a4dda646c5c66, type: 2}
@@ -889,7 +887,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1013,7 +1011,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 349247673}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 364651630}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: ChangePlane
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &349247673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,6 +1116,15 @@ MonoBehaviour:
   - {fileID: 765168643}
   - {fileID: 871204140}
   coinsText: {fileID: 216774936}
+  shopPanel: {fileID: 1649123719}
+  planeImg: {fileID: 2112171288}
+  planes:
+  - {fileID: 21300000, guid: 89dfb45a8bdf86241931333764a54728, type: 3}
+  - {fileID: 21300000, guid: e2821473c30613c48b49740db55ee2d4, type: 3}
+  - {fileID: 21300000, guid: 05b6580831daf6f488ef59d908ccebf5, type: 3}
+  - {fileID: 21300000, guid: e8066e3a46575924e82653fb5dcd6fc1, type: 3}
+  planeNameText: {fileID: 1652175685}
+  pricePlaneButtonText: {fileID: 0}
 --- !u!1 &396596797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,7 +1218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &515114395
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3227,7 +3246,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1480242593}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 364651630}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: ChangePlane
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1480242593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3516,7 +3547,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 300}
-  m_SizeDelta: {x: 536.1, y: 134.02002}
+  m_SizeDelta: {x: 1281.08, y: 134.02}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1652175685
 MonoBehaviour:
@@ -4424,7 +4455,7 @@ GameObject:
   - component: {fileID: 2112171289}
   - component: {fileID: 2112171288}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PlaneImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

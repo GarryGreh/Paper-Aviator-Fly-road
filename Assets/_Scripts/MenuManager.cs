@@ -24,6 +24,15 @@ public class MenuManager : MonoBehaviour
     [Header("Coins")]
     public TextMeshProUGUI coinsText;
 
+    [Header("Shop")]
+    public GameObject shopPanel;
+    public Image planeImg;
+    public Sprite[] planes;
+    public TextMeshProUGUI planeNameText;
+    public TextMeshProUGUI pricePlaneButtonText;
+    private int indexPlane;
+    private List<int> purchasedPlanes = new List<int>();
+
     private int coins;
 
     private bool isAudioOn;
@@ -40,6 +49,17 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1.0f;
         isAudioOn = true;
         buttonAudioSetting.sprite = audioOn_sprite;
+        if (PlayerPrefs.HasKey("SavePay"))
+        {
+            for(int i = 0; i < PlayerPrefs.GetString("SavePay").Length; i++)
+            {
+                purchasedPlanes[i] = ((int)char.GetNumericValue(PlayerPrefs.GetString("SavePay")[i]));
+            }
+        }
+        else
+        {
+            purchasedPlanes[0] = 0;
+        }
     }
     
     // Инструкция
@@ -100,6 +120,50 @@ public class MenuManager : MonoBehaviour
     }
     public void PlayButton()
     {
-        SceneManager.LoadScene("GameScene");
+        for (int i = 0; i < purchasedPlanes.Count; i++)
+        {
+            if (indexPlane == purchasedPlanes[i])
+            {
+                SceneManager.LoadScene("GameScene");
+            }
+            // 
+        }
+    }
+    public void ShopButton()
+    {
+        shopPanel.SetActive(true);
+        planeImg.sprite = planes[indexPlane];
+    }
+    public void ShopHomeButton()
+    {
+        shopPanel.SetActive(false);
+    }
+    public void ChangePlane(int _indexPlane)
+    {
+        indexPlane += _indexPlane;
+        if(indexPlane > 3)
+        {
+            indexPlane = 0;
+        }
+        else if(indexPlane < 0)
+        {
+            indexPlane = 3;
+        }
+        planeImg.sprite = planes[indexPlane];
+        switch(indexPlane)
+        {
+            case 0:
+                planeNameText.text = "Dart paper plane";
+                break;
+            case 1:
+                planeNameText.text = "Glider paper plane";
+                break;
+            case 2:
+                planeNameText.text = "Arrow paper plane";
+                break;
+            case 3:
+                planeNameText.text = "Canard paper plane";
+                break;
+        }
     }
 }
