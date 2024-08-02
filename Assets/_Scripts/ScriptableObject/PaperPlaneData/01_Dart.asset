@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2e4d3b43b49ba4898590380a275b4c, type: 3}
+  m_Name: 01_Dart
+  m_EditorClassIdentifier: 
+  namePlane: Dart paper plane
+  weightPlaneText: 3-5gr.
+  weightPlane: 3
+  windResistancePlaneText: ~0.03-0.1
+  windResistance: 0.07
+  pricePlane: 0
+  spritePlane: {fileID: 21300000, guid: 89dfb45a8bdf86241931333764a54728, type: 3}

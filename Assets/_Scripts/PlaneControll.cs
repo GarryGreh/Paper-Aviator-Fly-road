@@ -12,6 +12,13 @@ public class PlaneControll : MonoBehaviour
     public Slider flySpeed;
     public Slider flyAngle;
 
+    public SpriteRenderer spritePlane;
+
+    [Header("ScriptbleObject")]
+    public PaperPlaneData[] paperPlaneDatas;
+
+    private int currentSelectPlane;
+
     private bool isLaunch;
     private float xDir, yDir;
 
@@ -26,6 +33,16 @@ public class PlaneControll : MonoBehaviour
 
     private void Start()
     {
+        isStopRb = false;
+        rb = GetComponent<Rigidbody2D>();
+        rb.simulated = false;
+        isLaunch = false;
+
+        currentSelectPlane = PlayerPrefs.GetInt("CurrentSelectPlane");
+
+        spritePlane.sprite = paperPlaneDatas[currentSelectPlane].SpritePlane;
+        rb.mass = paperPlaneDatas[currentSelectPlane].WeightPlane / 1000;
+
         if (PlayerPrefs.HasKey("indexDifficulty"))
         {
             difficultyIndex = PlayerPrefs.GetInt("indexDifficulty");
@@ -40,12 +57,7 @@ public class PlaneControll : MonoBehaviour
             direction = new Vector3(1.0f, 0.10f, 0.0f);
         }
         transform.rotation = Quaternion.Euler(0, 0, 10);
-        direction = new Vector3(1.0f, 0.10f, 0.0f);
-
-        isStopRb = false;
-        rb = GetComponent<Rigidbody2D>();
-        rb.simulated = false;
-        isLaunch = false;
+        direction = new Vector3(1.0f, 0.10f, 0.0f);       
 
         xDir = RandomDirectionWind();
         yDir = RandomDirectionWind();

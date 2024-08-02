@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI rewardText;
 
+    [Header("Sound")]
+    public AudioSource loseAudio;
+    public AudioSource winAudio;
+
     private int prediction;
     private int reward;
     private int currentCoins;
@@ -72,6 +76,7 @@ public class GameManager : MonoBehaviour
             currentCoins += reward;
             distanceTreveledText.text = _distance.ToString();
             distanceTreveledText.color = Color.green;
+            winAudio.Play();
         }
         else if(prediction + 2 == _distance || prediction - 2 == _distance)
         {
@@ -79,6 +84,7 @@ public class GameManager : MonoBehaviour
             distanceTreveledText.text = _distance.ToString();
             distanceTreveledText.color = Color.yellow;
             reward /= 2;
+            winAudio.Play();
         }
         else if(prediction - 2 < _distance || prediction + 2 > _distance)
         {
@@ -86,6 +92,7 @@ public class GameManager : MonoBehaviour
             distanceTreveledText.text = _distance.ToString();
             distanceTreveledText.color = Color.red;
             reward = 0;
+            loseAudio.Play();
         }
         rewardText.text = reward.ToString();
         PlayerPrefs.SetInt("coins", currentCoins);

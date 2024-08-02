@@ -27,14 +27,17 @@ public class MenuManager : MonoBehaviour
     [Header("Shop")]
     public GameObject shopPanel;
     public Image planeImg;
-    public Sprite[] planes;
+    public PaperPlaneData[] paperPlaneDatas;
     public TextMeshProUGUI planeNameText;
     public TextMeshProUGUI pricePlaneButtonText;
+    public GameObject iconCoin;
+    public TextMeshProUGUI weightPlaneText;
+    public TextMeshProUGUI windResistanceText;
+    public Button payButton;
     private int indexPlane;
-    private List<int> purchasedPlanes = new List<int>();
-
-    private int coins;
-
+    private int coins = 0;
+    private int price;
+    private int saveCountPlane;
     private bool isAudioOn;
 
 
@@ -49,19 +52,24 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1.0f;
         isAudioOn = true;
         buttonAudioSetting.sprite = audioOn_sprite;
-        if (PlayerPrefs.HasKey("SavePay"))
+        if (PlayerPrefs.HasKey("SaveIndexPay"))
         {
-            for(int i = 0; i < PlayerPrefs.GetString("SavePay").Length; i++)
-            {
-                purchasedPlanes[i] = ((int)char.GetNumericValue(PlayerPrefs.GetString("SavePay")[i]));
-            }
+            saveCountPlane = PlayerPrefs.GetInt("SaveIndexPay");
         }
         else
         {
-            purchasedPlanes[0] = 0;
+            saveCountPlane = 0;
+        }
+        Debug.Log(saveCountPlane);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PlayerPrefs.DeleteAll();
         }
     }
-    
+
     // Инструкция
     public void InstructionButton()
     {
@@ -118,21 +126,32 @@ public class MenuManager : MonoBehaviour
         // в зависимости от цифры аргумента
         // а enum здесь видимо и не нужен
     }
-    public void PlayButton()
+    public void SelectPayButton()
     {
-        for (int i = 0; i < purchasedPlanes.Count; i++)
+       if(saveCountPlane >= indexPlane)
         {
-            if (indexPlane == purchasedPlanes[i])
-            {
-                SceneManager.LoadScene("GameScene");
-            }
-            // 
+            PlayerPrefs.SetInt("CurrentSelectPlane", indexPlane);
+            SceneManager.LoadScene("GameScene");
         }
+        else if (saveCountPlane + 1 == indexPlane)
+        {
+            Pay();
+        }
+    }
+    public void Pay()
+    {
+        coins -= price;
+        saveCountPlane++;
+        PlayerPrefs.SetInt("SaveIndexPay", saveCountPlane);
+        payButton.interactable = true;
+        pricePlaneButtonText.text = "Select";
+        iconCoin.SetActive(false);
     }
     public void ShopButton()
     {
         shopPanel.SetActive(true);
-        planeImg.sprite = planes[indexPlane];
+        payButton.interactable = true;
+        DataPlane(0);
     }
     public void ShopHomeButton()
     {
@@ -141,29 +160,47 @@ public class MenuManager : MonoBehaviour
     public void ChangePlane(int _indexPlane)
     {
         indexPlane += _indexPlane;
-        if(indexPlane > 3)
+
+        if (indexPlane > 3)
         {
             indexPlane = 0;
         }
-        else if(indexPlane < 0)
+        else if (indexPlane < 0)
         {
             indexPlane = 3;
-        }
-        planeImg.sprite = planes[indexPlane];
-        switch(indexPlane)
+        }        
+        DataPlane(indexPlane);
+    }
+    public void DataPlane(int _index)
+    {
+        planeImg.sprite = paperPlaneDatas[_index].SpritePlane;
+        planeNameText.text = paperPlaneDatas[_index].NamePlane;
+        weightPlaneText.text = paperPlaneDatas[_index].WeightPlaneText;
+        windResistanceText.text = paperPlaneDatas[_index].WindResistanceText;
+        if(saveCountPlane >= _index)
         {
-            case 0:
-                planeNameText.text = "Dart paper plane";
-                break;
-            case 1:
-                planeNameText.text = "Glider paper plane";
-                break;
-            case 2:
-                planeNameText.text = "Arrow paper plane";
-                break;
-            case 3:
-                planeNameText.text = "Canard paper plane";
-                break;
+            payButton.interactable = true;
+            pricePlaneButtonText.text = "Select";
+            iconCoin.SetActive(false);            
+        }
+        else if (saveCountPlane + 1 == _index)
+        {
+            if (coins >= paperPlaneDatas[_index].PricePlane)
+            {
+                payButton.interactable = true;
+            }
+            else
+            {
+                payButton.interactable = false;
+            }
+            pricePlaneButtonText.text = paperPlaneDatas[_index].PricePlane.ToString();
+            iconCoin.SetActive(true);            
+        }
+        else if(saveCountPlane + 1 < _index)
+        {
+            payButton.interactable = false;
+            pricePlaneButtonText.text = paperPlaneDatas[_index].PricePlane.ToString();
+            iconCoin.SetActive(true);            
         }
     }
 }
