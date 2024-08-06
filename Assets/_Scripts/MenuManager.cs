@@ -60,7 +60,7 @@ public class MenuManager : MonoBehaviour
         {
             saveCountPlane = 0;
         }
-        Debug.Log(saveCountPlane);
+        //Debug.Log(saveCountPlane);
     }
     private void Update()
     {

@@ -8215,6 +8215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flySpeed: {fileID: 1909188021}
   flyAngle: {fileID: 1865309574}
+  fly_button: {fileID: 1365896143}
   spritePlane: {fileID: 420120057}
   paperPlaneDatas:
   - {fileID: 11400000, guid: 82878c027a04bcf4f81aeff1f07c471e, type: 2}

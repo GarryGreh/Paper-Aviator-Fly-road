@@ -11,7 +11,7 @@ public class PlaneControll : MonoBehaviour
     private Vector3 windDirection;
     public Slider flySpeed;
     public Slider flyAngle;
-
+    public Button fly_button;
     public SpriteRenderer spritePlane;
 
     [Header("ScriptbleObject")]
@@ -33,6 +33,7 @@ public class PlaneControll : MonoBehaviour
 
     private void Start()
     {
+        fly_button.interactable = true;
         isStopRb = false;
         rb = GetComponent<Rigidbody2D>();
         rb.simulated = false;
@@ -120,6 +121,7 @@ public class PlaneControll : MonoBehaviour
         {
             rb.AddForce(direction * 0.7f * Time.fixedDeltaTime, ForceMode2D.Impulse);
         }
+        fly_button.interactable = false;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
